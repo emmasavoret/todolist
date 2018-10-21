@@ -4,7 +4,8 @@
   "description": "to do list",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node index.js"
+    "start": "tsc && node index.js",
+    "dev": "tsc && concurrently --kill-others \"tsc -w\" \"nodemon index.js\""
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "@types/express": "^4.16.0",
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4",
     "typescript": "^3.1.3"
   }
 }
