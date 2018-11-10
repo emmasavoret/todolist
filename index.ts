@@ -3,6 +3,8 @@ import { isNumber } from 'util';
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/api', (request: express.Request, response: express.Response) => {
     response.send('hello'); 
 });
