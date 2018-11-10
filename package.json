@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node index.js",
-    "dev": "tsc && concurrently --kill-others \"tsc -w\" \"nodemon index.js\""
+    "dev": "tsc && concurrently --kill-others \"tsc -w\" \"nodemon index.js --signal SIGKILL\"",
+    "serve": "nodemon index.js --signal SIGKILL",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
