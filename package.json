@@ -2,11 +2,11 @@
   "name": "todolist",
   "version": "0.0.1",
   "description": "to do list",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node index.js",
-    "dev": "tsc && concurrently --kill-others \"tsc -w\" \"nodemon index.js --signal SIGKILL\"",
-    "serve": "nodemon index.js --signal SIGKILL",
+    "start": "tsc && node dist/index.js",
+    "dev": "tsc && concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js --signal SIGKILL\"",
+    "serve": "nodemon dist/index.js --signal SIGKILL",
     "build": "tsc"
   },
   "repository": {
