@@ -12,7 +12,7 @@ app.get('/api', (request: express.Request, response: express.Response) => {
 const todos: string[] = ['a', 'b', 'c', 'd'];
 
 app.get('/api/todos', (request: express.Request, response: express.Response) => {
-    response.send(todos);
+    response.send(todos); 
 });
 
 app.get('/api/todos/new', (request: express.Request, response: express.Response) => {
@@ -25,7 +25,7 @@ app.get('/api/todos/:position', (request: express.Request, response: express.Res
     const position = request.params.position;
 
     // guard pattern
-    if (!isNumber(position)) {
+    if (isNaN(position)) {
         response.status(400).send('Not a valid position');
         return;
     }
@@ -50,7 +50,7 @@ app.delete('/api/todos/:entry', (request: express.Request, response: express.Res
             response.status(400).send('Not a valid position');
         } else {
             todos.splice(entry,1);
-            response.send(todos);   
+            response.send(todos);  
         }
     }
 });
