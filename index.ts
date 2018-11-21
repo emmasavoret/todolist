@@ -15,10 +15,17 @@ app.get('/api/todos', (request: express.Request, response: express.Response) => 
     response.send(todos); 
 });
 
-app.get('/api/todos/new', (request: express.Request, response: express.Response) => {
-    const item = request.query.item;
-    todos.push(item);
-    response.send(todos);
+// app.get('/api/todos/new', (request: express.Request, response: express.Response) => {
+//     const item = request.query.item;
+//     todos.push(item);
+//     response.send(todos);
+// }); 
+// Not pure to be able to add values using GET
+
+app.post('/api/todos', (request: express.Request, response: express.Response) => {   
+    const imput = request.body;
+    todos.push(imput.name);
+    response.send(imput.name);
 });
 
 app.get('/api/todos/:position', (request: express.Request, response: express.Response) => {
