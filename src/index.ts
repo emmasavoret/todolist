@@ -1,5 +1,7 @@
 import express from 'express';
-import { isNumber } from 'util';
+// import * as t from './todo.interface';
+// import Todo = t.Todo;
+import { Todo } from './todo.interface';
 
 const app = express();
 
@@ -9,7 +11,19 @@ app.get('/api', (request: express.Request, response: express.Response) => {
     response.send('hello'); 
 });
 
-const todos: string[] = ['a', 'b', 'c', 'd'];
+const todos: Todo[] = [
+    {
+        text: 'Learn about todo list', 
+        done: true
+    }, 
+    {
+        text: 'Make todo list', 
+        done: false
+    },
+    {
+        text: 'Conquer the world', 
+        done: false
+}];
 
 app.get('/api/todos', (request: express.Request, response: express.Response) => {
     response.send(todos); 
@@ -24,8 +38,13 @@ app.get('/api/todos', (request: express.Request, response: express.Response) => 
 
 app.post('/api/todos', (request: express.Request, response: express.Response) => {   
     const imput = request.body;
-    todos.push(imput.name);
-    response.send(imput.name);
+    const text = imput.name;
+    const newTodo = {
+        text: text,
+        done: false
+    };
+    todos.push(newTodo);
+    response.send(newTodo);
 });
 
 app.get('/api/todos/:position', (request: express.Request, response: express.Response) => {
