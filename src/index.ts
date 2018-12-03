@@ -107,16 +107,24 @@ app.put('/api/todos/:id', (request: express.Request, response: express.Response)
     
     const todosLenght = todos.length;
     const todosMaxPosition = todosLenght - 1;
-    if ( id <= todosMaxPosition) {
-        const replacement = request.body;
-        todos[id] = replacement; 
-        response.send(todos[id]);
-    } else {
-        response.status(404).send('Not a valid position')
+    if ( id > todosMaxPosition) {
+        response.status(404).send('Not a valid position');
+        return;
     }
-
-    // figure a way to define a missing property and then add an if fuction
-    // programation evenementiel qui detect le changement d'un nouvelle element (global)
+    const replacement = request.body;
+    if (typeof replacement.text !== "string") {
+        response.status(400).send('"text" must be a string');
+        return;
+    } 
+    if (typeof replacement.done === "undefined"){
+        replacement.done = false;
+    }
+    if (typeof replacement.done !== "boolean"){
+        response.status(400).send('"done" must be a boolean, was ' +typeof replacement.done);
+        return;
+    }
+    todos[id] = replacement;
+    response.send(todos[id]);
 });
 
 app.listen(3000); // spinning up a server
