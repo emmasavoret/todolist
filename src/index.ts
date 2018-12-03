@@ -72,7 +72,7 @@ app.get('/api/todos/:position', (request: express.Request, response: express.Res
 
 app.delete('/api/todos/:entry', (request: express.Request, response: express.Response) => {
     const entry = request.params.entry;
-    const parsed = parseInt(entry, 10);
+    const parsed = parseInt(entry, 10); //reads a number from a string
     if (isNaN(parsed)) {
         response.status(400).send('Not a valid position');
     } else {
@@ -86,12 +86,21 @@ app.delete('/api/todos/:entry', (request: express.Request, response: express.Res
 });
 
 app.post('/api/todos/:id/done', (request: express.Request, response: express.Response) => {
-    const id: number = request.params.id;
-    const imput = request.body; 
-    todos[id].done = imput.name;
-    const status = todos[id].done;
+    const id = request.params.id;
+    const parsed = parseInt(id, 10);
+    const imput = request.body;
+    console.log(imput,imput.done !== true,imput.done !== false,imput.done !== true || imput.done !== false);
+    if ( imput.done !== true && imput.done !== false ) {
+        response.status(400).send('Not a valid property');
+        return;
+    }
+
+    //todos[parsed].done = !!imput.done // bang bang (!!) (not not) turns into boolean
+    todos[parsed].done = imput.done;
+    const status = todos[parsed].done;
     response.send(status);  
 });
+
 
 app.put('/api/todos/:id', (request: express.Request, response: express.Response) => {
     const id: number = request.params.id;
