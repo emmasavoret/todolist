@@ -23,6 +23,10 @@ const todos: Todo[] = [
     {
         text: 'Conquer the world', 
         done: false
+    },
+    {
+        text: 'Have Fun', 
+        done: true
 }];
 
 app.get('/api/todos', (request: express.Request, response: express.Response) => {
@@ -79,6 +83,31 @@ app.delete('/api/todos/:entry', (request: express.Request, response: express.Res
             response.send(todos);  
         }
     }
+});
+
+app.post('/api/todos/:id/done', (request: express.Request, response: express.Response) => {
+    const id: number = request.params.id;
+    const imput = request.body; 
+    todos[id].done = imput.name;
+    const status = todos[id].done;
+    response.send(status);  
+});
+
+app.put('/api/todos/:id', (request: express.Request, response: express.Response) => {
+    const id: number = request.params.id;
+    
+    const todosLenght = todos.length;
+    const todosMaxPosition = todosLenght - 1;
+    if ( id <= todosMaxPosition) {
+        const replacement = request.body;
+        todos[id] = replacement; 
+        response.send(todos[id]);
+    } else {
+        response.status(404).send('Not a valid position')
+    }
+
+    // figure a way to define a missing property and then add an if fuction
+    // programation evenementiel qui detect le changement d'un nouvelle element (global)
 });
 
 app.listen(3000); // spinning up a server
